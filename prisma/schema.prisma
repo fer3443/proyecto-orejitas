@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  password  String
+  role      Role      @default(USER)
+  isBlocked Boolean   @default(false)
+  posts     PetPost[] // relación 1:N con PetPost
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model PetPost {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  type        PetPostType
+  location    String
+  image       String
+  status      PostStatus  @default(ACTIVE)
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum PetPostType {
+  ADOPTION // para dar en adopción
+  LOST // mascota perdida
+  FOUND // mascota encontrada
+}
+
+enum PostStatus {
+  ACTIVE
+  RESOLVED
+  CLOSED
+}
+
+enum Role {
+  ADMIN
+  USER
+}
