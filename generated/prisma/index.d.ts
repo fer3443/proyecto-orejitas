@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type PetPost = $Result.DefaultSelection<Prisma.$PetPostPayload>
+/**
+ * Model ImagePets
+ * 
+ */
+export type ImagePets = $Result.DefaultSelection<Prisma.$ImagePetsPayload>
 
 /**
  * Enums
@@ -53,6 +58,15 @@ export const Role: {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const Species: {
+  PERRO: 'PERRO',
+  GATO: 'GATO',
+  OTRO: 'OTRO'
+};
+
+export type Species = (typeof Species)[keyof typeof Species]
+
 }
 
 export type PetPostType = $Enums.PetPostType
@@ -66,6 +80,10 @@ export const PostStatus: typeof $Enums.PostStatus
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type Species = $Enums.Species
+
+export const Species: typeof $Enums.Species
 
 /**
  * ##  Prisma Client ʲˢ
@@ -211,6 +229,16 @@ export class PrismaClient<
     * ```
     */
   get petPost(): Prisma.PetPostDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.imagePets`: Exposes CRUD operations for the **ImagePets** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ImagePets
+    * const imagePets = await prisma.imagePets.findMany()
+    * ```
+    */
+  get imagePets(): Prisma.ImagePetsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -652,7 +680,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    PetPost: 'PetPost'
+    PetPost: 'PetPost',
+    ImagePets: 'ImagePets'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -671,7 +700,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "petPost"
+      modelProps: "user" | "petPost" | "imagePets"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -823,6 +852,80 @@ export namespace Prisma {
           }
         }
       }
+      ImagePets: {
+        payload: Prisma.$ImagePetsPayload<ExtArgs>
+        fields: Prisma.ImagePetsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ImagePetsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ImagePetsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          findFirst: {
+            args: Prisma.ImagePetsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ImagePetsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          findMany: {
+            args: Prisma.ImagePetsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>[]
+          }
+          create: {
+            args: Prisma.ImagePetsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          createMany: {
+            args: Prisma.ImagePetsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ImagePetsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>[]
+          }
+          delete: {
+            args: Prisma.ImagePetsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          update: {
+            args: Prisma.ImagePetsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ImagePetsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ImagePetsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ImagePetsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>[]
+          }
+          upsert: {
+            args: Prisma.ImagePetsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ImagePetsPayload>
+          }
+          aggregate: {
+            args: Prisma.ImagePetsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateImagePets>
+          }
+          groupBy: {
+            args: Prisma.ImagePetsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ImagePetsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ImagePetsCountArgs<ExtArgs>
+            result: $Utils.Optional<ImagePetsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -909,6 +1012,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     petPost?: PetPostOmit
+    imagePets?: ImagePetsOmit
   }
 
   /* Types for Logging */
@@ -1026,6 +1130,37 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PetPostWhereInput
+  }
+
+
+  /**
+   * Count Type PetPostCountOutputType
+   */
+
+  export type PetPostCountOutputType = {
+    image: number
+  }
+
+  export type PetPostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image?: boolean | PetPostCountOutputTypeCountImageArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PetPostCountOutputType without action
+   */
+  export type PetPostCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PetPostCountOutputType
+     */
+    select?: PetPostCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PetPostCountOutputType without action
+   */
+  export type PetPostCountOutputTypeCountImageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagePetsWhereInput
   }
 
 
@@ -2157,8 +2292,10 @@ export namespace Prisma {
     title: string | null
     description: string | null
     type: $Enums.PetPostType | null
+    species: $Enums.Species | null
+    breed: string | null
+    age: string | null
     location: string | null
-    image: string | null
     status: $Enums.PostStatus | null
     userId: string | null
     createdAt: Date | null
@@ -2170,8 +2307,10 @@ export namespace Prisma {
     title: string | null
     description: string | null
     type: $Enums.PetPostType | null
+    species: $Enums.Species | null
+    breed: string | null
+    age: string | null
     location: string | null
-    image: string | null
     status: $Enums.PostStatus | null
     userId: string | null
     createdAt: Date | null
@@ -2183,8 +2322,10 @@ export namespace Prisma {
     title: number
     description: number
     type: number
+    species: number
+    breed: number
+    age: number
     location: number
-    image: number
     status: number
     userId: number
     createdAt: number
@@ -2198,8 +2339,10 @@ export namespace Prisma {
     title?: true
     description?: true
     type?: true
+    species?: true
+    breed?: true
+    age?: true
     location?: true
-    image?: true
     status?: true
     userId?: true
     createdAt?: true
@@ -2211,8 +2354,10 @@ export namespace Prisma {
     title?: true
     description?: true
     type?: true
+    species?: true
+    breed?: true
+    age?: true
     location?: true
-    image?: true
     status?: true
     userId?: true
     createdAt?: true
@@ -2224,8 +2369,10 @@ export namespace Prisma {
     title?: true
     description?: true
     type?: true
+    species?: true
+    breed?: true
+    age?: true
     location?: true
-    image?: true
     status?: true
     userId?: true
     createdAt?: true
@@ -2310,8 +2457,10 @@ export namespace Prisma {
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed: string | null
+    age: string | null
     location: string
-    image: string
     status: $Enums.PostStatus
     userId: string
     createdAt: Date
@@ -2340,13 +2489,17 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     type?: boolean
+    species?: boolean
+    breed?: boolean
+    age?: boolean
     location?: boolean
-    image?: boolean
     status?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    image?: boolean | PetPost$imageArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | PetPostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["petPost"]>
 
   export type PetPostSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2354,8 +2507,10 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     type?: boolean
+    species?: boolean
+    breed?: boolean
+    age?: boolean
     location?: boolean
-    image?: boolean
     status?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -2368,8 +2523,10 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     type?: boolean
+    species?: boolean
+    breed?: boolean
+    age?: boolean
     location?: boolean
-    image?: boolean
     status?: boolean
     userId?: boolean
     createdAt?: boolean
@@ -2382,17 +2539,21 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     type?: boolean
+    species?: boolean
+    breed?: boolean
+    age?: boolean
     location?: boolean
-    image?: boolean
     status?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PetPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "location" | "image" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["petPost"]>
+  export type PetPostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "species" | "breed" | "age" | "location" | "status" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["petPost"]>
   export type PetPostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    image?: boolean | PetPost$imageArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
+    _count?: boolean | PetPostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PetPostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2404,6 +2565,7 @@ export namespace Prisma {
   export type $PetPostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PetPost"
     objects: {
+      image: Prisma.$ImagePetsPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2411,8 +2573,10 @@ export namespace Prisma {
       title: string
       description: string
       type: $Enums.PetPostType
+      species: $Enums.Species
+      breed: string | null
+      age: string | null
       location: string
-      image: string
       status: $Enums.PostStatus
       userId: string
       createdAt: Date
@@ -2811,6 +2975,7 @@ export namespace Prisma {
    */
   export interface Prisma__PetPostClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    image<T extends PetPost$imageArgs<ExtArgs> = {}>(args?: Subset<T, PetPost$imageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2845,8 +3010,10 @@ export namespace Prisma {
     readonly title: FieldRef<"PetPost", 'String'>
     readonly description: FieldRef<"PetPost", 'String'>
     readonly type: FieldRef<"PetPost", 'PetPostType'>
+    readonly species: FieldRef<"PetPost", 'Species'>
+    readonly breed: FieldRef<"PetPost", 'String'>
+    readonly age: FieldRef<"PetPost", 'String'>
     readonly location: FieldRef<"PetPost", 'String'>
-    readonly image: FieldRef<"PetPost", 'String'>
     readonly status: FieldRef<"PetPost", 'PostStatus'>
     readonly userId: FieldRef<"PetPost", 'String'>
     readonly createdAt: FieldRef<"PetPost", 'DateTime'>
@@ -3247,6 +3414,30 @@ export namespace Prisma {
   }
 
   /**
+   * PetPost.image
+   */
+  export type PetPost$imageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    where?: ImagePetsWhereInput
+    orderBy?: ImagePetsOrderByWithRelationInput | ImagePetsOrderByWithRelationInput[]
+    cursor?: ImagePetsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ImagePetsScalarFieldEnum | ImagePetsScalarFieldEnum[]
+  }
+
+  /**
    * PetPost without action
    */
   export type PetPostDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3262,6 +3453,1072 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PetPostInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ImagePets
+   */
+
+  export type AggregateImagePets = {
+    _count: ImagePetsCountAggregateOutputType | null
+    _avg: ImagePetsAvgAggregateOutputType | null
+    _sum: ImagePetsSumAggregateOutputType | null
+    _min: ImagePetsMinAggregateOutputType | null
+    _max: ImagePetsMaxAggregateOutputType | null
+  }
+
+  export type ImagePetsAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ImagePetsSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ImagePetsMinAggregateOutputType = {
+    id: number | null
+    url: string | null
+    petPostId: string | null
+  }
+
+  export type ImagePetsMaxAggregateOutputType = {
+    id: number | null
+    url: string | null
+    petPostId: string | null
+  }
+
+  export type ImagePetsCountAggregateOutputType = {
+    id: number
+    url: number
+    petPostId: number
+    _all: number
+  }
+
+
+  export type ImagePetsAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ImagePetsSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ImagePetsMinAggregateInputType = {
+    id?: true
+    url?: true
+    petPostId?: true
+  }
+
+  export type ImagePetsMaxAggregateInputType = {
+    id?: true
+    url?: true
+    petPostId?: true
+  }
+
+  export type ImagePetsCountAggregateInputType = {
+    id?: true
+    url?: true
+    petPostId?: true
+    _all?: true
+  }
+
+  export type ImagePetsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImagePets to aggregate.
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePets to fetch.
+     */
+    orderBy?: ImagePetsOrderByWithRelationInput | ImagePetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ImagePetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ImagePets
+    **/
+    _count?: true | ImagePetsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ImagePetsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ImagePetsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ImagePetsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ImagePetsMaxAggregateInputType
+  }
+
+  export type GetImagePetsAggregateType<T extends ImagePetsAggregateArgs> = {
+        [P in keyof T & keyof AggregateImagePets]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateImagePets[P]>
+      : GetScalarType<T[P], AggregateImagePets[P]>
+  }
+
+
+
+
+  export type ImagePetsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ImagePetsWhereInput
+    orderBy?: ImagePetsOrderByWithAggregationInput | ImagePetsOrderByWithAggregationInput[]
+    by: ImagePetsScalarFieldEnum[] | ImagePetsScalarFieldEnum
+    having?: ImagePetsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ImagePetsCountAggregateInputType | true
+    _avg?: ImagePetsAvgAggregateInputType
+    _sum?: ImagePetsSumAggregateInputType
+    _min?: ImagePetsMinAggregateInputType
+    _max?: ImagePetsMaxAggregateInputType
+  }
+
+  export type ImagePetsGroupByOutputType = {
+    id: number
+    url: string
+    petPostId: string
+    _count: ImagePetsCountAggregateOutputType | null
+    _avg: ImagePetsAvgAggregateOutputType | null
+    _sum: ImagePetsSumAggregateOutputType | null
+    _min: ImagePetsMinAggregateOutputType | null
+    _max: ImagePetsMaxAggregateOutputType | null
+  }
+
+  type GetImagePetsGroupByPayload<T extends ImagePetsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ImagePetsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ImagePetsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ImagePetsGroupByOutputType[P]>
+            : GetScalarType<T[P], ImagePetsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ImagePetsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    petPostId?: boolean
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagePets"]>
+
+  export type ImagePetsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    petPostId?: boolean
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagePets"]>
+
+  export type ImagePetsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    petPostId?: boolean
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["imagePets"]>
+
+  export type ImagePetsSelectScalar = {
+    id?: boolean
+    url?: boolean
+    petPostId?: boolean
+  }
+
+  export type ImagePetsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "petPostId", ExtArgs["result"]["imagePets"]>
+  export type ImagePetsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }
+  export type ImagePetsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }
+  export type ImagePetsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    petPost?: boolean | PetPostDefaultArgs<ExtArgs>
+  }
+
+  export type $ImagePetsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ImagePets"
+    objects: {
+      petPost: Prisma.$PetPostPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      url: string
+      petPostId: string
+    }, ExtArgs["result"]["imagePets"]>
+    composites: {}
+  }
+
+  type ImagePetsGetPayload<S extends boolean | null | undefined | ImagePetsDefaultArgs> = $Result.GetResult<Prisma.$ImagePetsPayload, S>
+
+  type ImagePetsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ImagePetsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ImagePetsCountAggregateInputType | true
+    }
+
+  export interface ImagePetsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ImagePets'], meta: { name: 'ImagePets' } }
+    /**
+     * Find zero or one ImagePets that matches the filter.
+     * @param {ImagePetsFindUniqueArgs} args - Arguments to find a ImagePets
+     * @example
+     * // Get one ImagePets
+     * const imagePets = await prisma.imagePets.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ImagePetsFindUniqueArgs>(args: SelectSubset<T, ImagePetsFindUniqueArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ImagePets that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ImagePetsFindUniqueOrThrowArgs} args - Arguments to find a ImagePets
+     * @example
+     * // Get one ImagePets
+     * const imagePets = await prisma.imagePets.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ImagePetsFindUniqueOrThrowArgs>(args: SelectSubset<T, ImagePetsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ImagePets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsFindFirstArgs} args - Arguments to find a ImagePets
+     * @example
+     * // Get one ImagePets
+     * const imagePets = await prisma.imagePets.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ImagePetsFindFirstArgs>(args?: SelectSubset<T, ImagePetsFindFirstArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ImagePets that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsFindFirstOrThrowArgs} args - Arguments to find a ImagePets
+     * @example
+     * // Get one ImagePets
+     * const imagePets = await prisma.imagePets.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ImagePetsFindFirstOrThrowArgs>(args?: SelectSubset<T, ImagePetsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ImagePets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ImagePets
+     * const imagePets = await prisma.imagePets.findMany()
+     * 
+     * // Get first 10 ImagePets
+     * const imagePets = await prisma.imagePets.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const imagePetsWithIdOnly = await prisma.imagePets.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ImagePetsFindManyArgs>(args?: SelectSubset<T, ImagePetsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ImagePets.
+     * @param {ImagePetsCreateArgs} args - Arguments to create a ImagePets.
+     * @example
+     * // Create one ImagePets
+     * const ImagePets = await prisma.imagePets.create({
+     *   data: {
+     *     // ... data to create a ImagePets
+     *   }
+     * })
+     * 
+     */
+    create<T extends ImagePetsCreateArgs>(args: SelectSubset<T, ImagePetsCreateArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ImagePets.
+     * @param {ImagePetsCreateManyArgs} args - Arguments to create many ImagePets.
+     * @example
+     * // Create many ImagePets
+     * const imagePets = await prisma.imagePets.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ImagePetsCreateManyArgs>(args?: SelectSubset<T, ImagePetsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ImagePets and returns the data saved in the database.
+     * @param {ImagePetsCreateManyAndReturnArgs} args - Arguments to create many ImagePets.
+     * @example
+     * // Create many ImagePets
+     * const imagePets = await prisma.imagePets.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ImagePets and only return the `id`
+     * const imagePetsWithIdOnly = await prisma.imagePets.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ImagePetsCreateManyAndReturnArgs>(args?: SelectSubset<T, ImagePetsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ImagePets.
+     * @param {ImagePetsDeleteArgs} args - Arguments to delete one ImagePets.
+     * @example
+     * // Delete one ImagePets
+     * const ImagePets = await prisma.imagePets.delete({
+     *   where: {
+     *     // ... filter to delete one ImagePets
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ImagePetsDeleteArgs>(args: SelectSubset<T, ImagePetsDeleteArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ImagePets.
+     * @param {ImagePetsUpdateArgs} args - Arguments to update one ImagePets.
+     * @example
+     * // Update one ImagePets
+     * const imagePets = await prisma.imagePets.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ImagePetsUpdateArgs>(args: SelectSubset<T, ImagePetsUpdateArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ImagePets.
+     * @param {ImagePetsDeleteManyArgs} args - Arguments to filter ImagePets to delete.
+     * @example
+     * // Delete a few ImagePets
+     * const { count } = await prisma.imagePets.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ImagePetsDeleteManyArgs>(args?: SelectSubset<T, ImagePetsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImagePets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ImagePets
+     * const imagePets = await prisma.imagePets.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ImagePetsUpdateManyArgs>(args: SelectSubset<T, ImagePetsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ImagePets and returns the data updated in the database.
+     * @param {ImagePetsUpdateManyAndReturnArgs} args - Arguments to update many ImagePets.
+     * @example
+     * // Update many ImagePets
+     * const imagePets = await prisma.imagePets.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ImagePets and only return the `id`
+     * const imagePetsWithIdOnly = await prisma.imagePets.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ImagePetsUpdateManyAndReturnArgs>(args: SelectSubset<T, ImagePetsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ImagePets.
+     * @param {ImagePetsUpsertArgs} args - Arguments to update or create a ImagePets.
+     * @example
+     * // Update or create a ImagePets
+     * const imagePets = await prisma.imagePets.upsert({
+     *   create: {
+     *     // ... data to create a ImagePets
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ImagePets we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ImagePetsUpsertArgs>(args: SelectSubset<T, ImagePetsUpsertArgs<ExtArgs>>): Prisma__ImagePetsClient<$Result.GetResult<Prisma.$ImagePetsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ImagePets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsCountArgs} args - Arguments to filter ImagePets to count.
+     * @example
+     * // Count the number of ImagePets
+     * const count = await prisma.imagePets.count({
+     *   where: {
+     *     // ... the filter for the ImagePets we want to count
+     *   }
+     * })
+    **/
+    count<T extends ImagePetsCountArgs>(
+      args?: Subset<T, ImagePetsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ImagePetsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ImagePets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ImagePetsAggregateArgs>(args: Subset<T, ImagePetsAggregateArgs>): Prisma.PrismaPromise<GetImagePetsAggregateType<T>>
+
+    /**
+     * Group by ImagePets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ImagePetsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ImagePetsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ImagePetsGroupByArgs['orderBy'] }
+        : { orderBy?: ImagePetsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ImagePetsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetImagePetsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ImagePets model
+   */
+  readonly fields: ImagePetsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ImagePets.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ImagePetsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    petPost<T extends PetPostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PetPostDefaultArgs<ExtArgs>>): Prisma__PetPostClient<$Result.GetResult<Prisma.$PetPostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ImagePets model
+   */
+  interface ImagePetsFieldRefs {
+    readonly id: FieldRef<"ImagePets", 'Int'>
+    readonly url: FieldRef<"ImagePets", 'String'>
+    readonly petPostId: FieldRef<"ImagePets", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ImagePets findUnique
+   */
+  export type ImagePetsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePets to fetch.
+     */
+    where: ImagePetsWhereUniqueInput
+  }
+
+  /**
+   * ImagePets findUniqueOrThrow
+   */
+  export type ImagePetsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePets to fetch.
+     */
+    where: ImagePetsWhereUniqueInput
+  }
+
+  /**
+   * ImagePets findFirst
+   */
+  export type ImagePetsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePets to fetch.
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePets to fetch.
+     */
+    orderBy?: ImagePetsOrderByWithRelationInput | ImagePetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImagePets.
+     */
+    cursor?: ImagePetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImagePets.
+     */
+    distinct?: ImagePetsScalarFieldEnum | ImagePetsScalarFieldEnum[]
+  }
+
+  /**
+   * ImagePets findFirstOrThrow
+   */
+  export type ImagePetsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePets to fetch.
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePets to fetch.
+     */
+    orderBy?: ImagePetsOrderByWithRelationInput | ImagePetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ImagePets.
+     */
+    cursor?: ImagePetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ImagePets.
+     */
+    distinct?: ImagePetsScalarFieldEnum | ImagePetsScalarFieldEnum[]
+  }
+
+  /**
+   * ImagePets findMany
+   */
+  export type ImagePetsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter, which ImagePets to fetch.
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ImagePets to fetch.
+     */
+    orderBy?: ImagePetsOrderByWithRelationInput | ImagePetsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ImagePets.
+     */
+    cursor?: ImagePetsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ImagePets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ImagePets.
+     */
+    skip?: number
+    distinct?: ImagePetsScalarFieldEnum | ImagePetsScalarFieldEnum[]
+  }
+
+  /**
+   * ImagePets create
+   */
+  export type ImagePetsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ImagePets.
+     */
+    data: XOR<ImagePetsCreateInput, ImagePetsUncheckedCreateInput>
+  }
+
+  /**
+   * ImagePets createMany
+   */
+  export type ImagePetsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ImagePets.
+     */
+    data: ImagePetsCreateManyInput | ImagePetsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ImagePets createManyAndReturn
+   */
+  export type ImagePetsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * The data used to create many ImagePets.
+     */
+    data: ImagePetsCreateManyInput | ImagePetsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ImagePets update
+   */
+  export type ImagePetsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ImagePets.
+     */
+    data: XOR<ImagePetsUpdateInput, ImagePetsUncheckedUpdateInput>
+    /**
+     * Choose, which ImagePets to update.
+     */
+    where: ImagePetsWhereUniqueInput
+  }
+
+  /**
+   * ImagePets updateMany
+   */
+  export type ImagePetsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ImagePets.
+     */
+    data: XOR<ImagePetsUpdateManyMutationInput, ImagePetsUncheckedUpdateManyInput>
+    /**
+     * Filter which ImagePets to update
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * Limit how many ImagePets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ImagePets updateManyAndReturn
+   */
+  export type ImagePetsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * The data used to update ImagePets.
+     */
+    data: XOR<ImagePetsUpdateManyMutationInput, ImagePetsUncheckedUpdateManyInput>
+    /**
+     * Filter which ImagePets to update
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * Limit how many ImagePets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ImagePets upsert
+   */
+  export type ImagePetsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ImagePets to update in case it exists.
+     */
+    where: ImagePetsWhereUniqueInput
+    /**
+     * In case the ImagePets found by the `where` argument doesn't exist, create a new ImagePets with this data.
+     */
+    create: XOR<ImagePetsCreateInput, ImagePetsUncheckedCreateInput>
+    /**
+     * In case the ImagePets was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ImagePetsUpdateInput, ImagePetsUncheckedUpdateInput>
+  }
+
+  /**
+   * ImagePets delete
+   */
+  export type ImagePetsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
+    /**
+     * Filter which ImagePets to delete.
+     */
+    where: ImagePetsWhereUniqueInput
+  }
+
+  /**
+   * ImagePets deleteMany
+   */
+  export type ImagePetsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ImagePets to delete
+     */
+    where?: ImagePetsWhereInput
+    /**
+     * Limit how many ImagePets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ImagePets without action
+   */
+  export type ImagePetsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ImagePets
+     */
+    select?: ImagePetsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ImagePets
+     */
+    omit?: ImagePetsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ImagePetsInclude<ExtArgs> | null
   }
 
 
@@ -3298,8 +4555,10 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     type: 'type',
+    species: 'species',
+    breed: 'breed',
+    age: 'age',
     location: 'location',
-    image: 'image',
     status: 'status',
     userId: 'userId',
     createdAt: 'createdAt',
@@ -3307,6 +4566,15 @@ export namespace Prisma {
   };
 
   export type PetPostScalarFieldEnum = (typeof PetPostScalarFieldEnum)[keyof typeof PetPostScalarFieldEnum]
+
+
+  export const ImagePetsScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    petPostId: 'petPostId'
+  };
+
+  export type ImagePetsScalarFieldEnum = (typeof ImagePetsScalarFieldEnum)[keyof typeof ImagePetsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3323,6 +4591,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3394,6 +4670,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Species'
+   */
+  export type EnumSpeciesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Species'>
+    
+
+
+  /**
+   * Reference to a field of type 'Species[]'
+   */
+  export type ListEnumSpeciesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Species[]'>
+    
+
+
+  /**
    * Reference to a field of type 'PostStatus'
    */
   export type EnumPostStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PostStatus'>
@@ -3418,6 +4708,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3502,12 +4806,15 @@ export namespace Prisma {
     title?: StringFilter<"PetPost"> | string
     description?: StringFilter<"PetPost"> | string
     type?: EnumPetPostTypeFilter<"PetPost"> | $Enums.PetPostType
+    species?: EnumSpeciesFilter<"PetPost"> | $Enums.Species
+    breed?: StringNullableFilter<"PetPost"> | string | null
+    age?: StringNullableFilter<"PetPost"> | string | null
     location?: StringFilter<"PetPost"> | string
-    image?: StringFilter<"PetPost"> | string
     status?: EnumPostStatusFilter<"PetPost"> | $Enums.PostStatus
     userId?: StringFilter<"PetPost"> | string
     createdAt?: DateTimeFilter<"PetPost"> | Date | string
     updatedAt?: DateTimeFilter<"PetPost"> | Date | string
+    image?: ImagePetsListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -3516,12 +4823,15 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     type?: SortOrder
+    species?: SortOrder
+    breed?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     location?: SortOrder
-    image?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    image?: ImagePetsOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -3533,12 +4843,15 @@ export namespace Prisma {
     title?: StringFilter<"PetPost"> | string
     description?: StringFilter<"PetPost"> | string
     type?: EnumPetPostTypeFilter<"PetPost"> | $Enums.PetPostType
+    species?: EnumSpeciesFilter<"PetPost"> | $Enums.Species
+    breed?: StringNullableFilter<"PetPost"> | string | null
+    age?: StringNullableFilter<"PetPost"> | string | null
     location?: StringFilter<"PetPost"> | string
-    image?: StringFilter<"PetPost"> | string
     status?: EnumPostStatusFilter<"PetPost"> | $Enums.PostStatus
     userId?: StringFilter<"PetPost"> | string
     createdAt?: DateTimeFilter<"PetPost"> | Date | string
     updatedAt?: DateTimeFilter<"PetPost"> | Date | string
+    image?: ImagePetsListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
@@ -3547,8 +4860,10 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     type?: SortOrder
+    species?: SortOrder
+    breed?: SortOrderInput | SortOrder
+    age?: SortOrderInput | SortOrder
     location?: SortOrder
-    image?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -3566,12 +4881,61 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"PetPost"> | string
     description?: StringWithAggregatesFilter<"PetPost"> | string
     type?: EnumPetPostTypeWithAggregatesFilter<"PetPost"> | $Enums.PetPostType
+    species?: EnumSpeciesWithAggregatesFilter<"PetPost"> | $Enums.Species
+    breed?: StringNullableWithAggregatesFilter<"PetPost"> | string | null
+    age?: StringNullableWithAggregatesFilter<"PetPost"> | string | null
     location?: StringWithAggregatesFilter<"PetPost"> | string
-    image?: StringWithAggregatesFilter<"PetPost"> | string
     status?: EnumPostStatusWithAggregatesFilter<"PetPost"> | $Enums.PostStatus
     userId?: StringWithAggregatesFilter<"PetPost"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PetPost"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PetPost"> | Date | string
+  }
+
+  export type ImagePetsWhereInput = {
+    AND?: ImagePetsWhereInput | ImagePetsWhereInput[]
+    OR?: ImagePetsWhereInput[]
+    NOT?: ImagePetsWhereInput | ImagePetsWhereInput[]
+    id?: IntFilter<"ImagePets"> | number
+    url?: StringFilter<"ImagePets"> | string
+    petPostId?: StringFilter<"ImagePets"> | string
+    petPost?: XOR<PetPostScalarRelationFilter, PetPostWhereInput>
+  }
+
+  export type ImagePetsOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    petPostId?: SortOrder
+    petPost?: PetPostOrderByWithRelationInput
+  }
+
+  export type ImagePetsWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ImagePetsWhereInput | ImagePetsWhereInput[]
+    OR?: ImagePetsWhereInput[]
+    NOT?: ImagePetsWhereInput | ImagePetsWhereInput[]
+    url?: StringFilter<"ImagePets"> | string
+    petPostId?: StringFilter<"ImagePets"> | string
+    petPost?: XOR<PetPostScalarRelationFilter, PetPostWhereInput>
+  }, "id">
+
+  export type ImagePetsOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    petPostId?: SortOrder
+    _count?: ImagePetsCountOrderByAggregateInput
+    _avg?: ImagePetsAvgOrderByAggregateInput
+    _max?: ImagePetsMaxOrderByAggregateInput
+    _min?: ImagePetsMinOrderByAggregateInput
+    _sum?: ImagePetsSumOrderByAggregateInput
+  }
+
+  export type ImagePetsScalarWhereWithAggregatesInput = {
+    AND?: ImagePetsScalarWhereWithAggregatesInput | ImagePetsScalarWhereWithAggregatesInput[]
+    OR?: ImagePetsScalarWhereWithAggregatesInput[]
+    NOT?: ImagePetsScalarWhereWithAggregatesInput | ImagePetsScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ImagePets"> | number
+    url?: StringWithAggregatesFilter<"ImagePets"> | string
+    petPostId?: StringWithAggregatesFilter<"ImagePets"> | string
   }
 
   export type UserCreateInput = {
@@ -3660,11 +5024,14 @@ export namespace Prisma {
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    image?: ImagePetsCreateNestedManyWithoutPetPostInput
     user: UserCreateNestedOneWithoutPostsInput
   }
 
@@ -3673,12 +5040,15 @@ export namespace Prisma {
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    image?: ImagePetsUncheckedCreateNestedManyWithoutPetPostInput
   }
 
   export type PetPostUpdateInput = {
@@ -3686,11 +5056,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: ImagePetsUpdateManyWithoutPetPostNestedInput
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
   }
 
@@ -3699,12 +5072,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: ImagePetsUncheckedUpdateManyWithoutPetPostNestedInput
   }
 
   export type PetPostCreateManyInput = {
@@ -3712,8 +5088,10 @@ export namespace Prisma {
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     userId: string
     createdAt?: Date | string
@@ -3725,8 +5103,10 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3737,12 +5117,52 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePetsCreateInput = {
+    url: string
+    petPost: PetPostCreateNestedOneWithoutImageInput
+  }
+
+  export type ImagePetsUncheckedCreateInput = {
+    id?: number
+    url: string
+    petPostId: string
+  }
+
+  export type ImagePetsUpdateInput = {
+    url?: StringFieldUpdateOperationsInput | string
+    petPost?: PetPostUpdateOneRequiredWithoutImageNestedInput
+  }
+
+  export type ImagePetsUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    petPostId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ImagePetsCreateManyInput = {
+    id?: number
+    url: string
+    petPostId: string
+  }
+
+  export type ImagePetsUpdateManyMutationInput = {
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ImagePetsUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+    petPostId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3883,6 +5303,28 @@ export namespace Prisma {
     not?: NestedEnumPetPostTypeFilter<$PrismaModel> | $Enums.PetPostType
   }
 
+  export type EnumSpeciesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Species | EnumSpeciesFieldRefInput<$PrismaModel>
+    in?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSpeciesFilter<$PrismaModel> | $Enums.Species
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type EnumPostStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
@@ -3890,9 +5332,24 @@ export namespace Prisma {
     not?: NestedEnumPostStatusFilter<$PrismaModel> | $Enums.PostStatus
   }
 
+  export type ImagePetsListRelationFilter = {
+    every?: ImagePetsWhereInput
+    some?: ImagePetsWhereInput
+    none?: ImagePetsWhereInput
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ImagePetsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PetPostCountOrderByAggregateInput = {
@@ -3900,8 +5357,10 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     type?: SortOrder
+    species?: SortOrder
+    breed?: SortOrder
+    age?: SortOrder
     location?: SortOrder
-    image?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -3913,8 +5372,10 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     type?: SortOrder
+    species?: SortOrder
+    breed?: SortOrder
+    age?: SortOrder
     location?: SortOrder
-    image?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -3926,8 +5387,10 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     type?: SortOrder
+    species?: SortOrder
+    breed?: SortOrder
+    age?: SortOrder
     location?: SortOrder
-    image?: SortOrder
     status?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
@@ -3944,6 +5407,34 @@ export namespace Prisma {
     _max?: NestedEnumPetPostTypeFilter<$PrismaModel>
   }
 
+  export type EnumSpeciesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Species | EnumSpeciesFieldRefInput<$PrismaModel>
+    in?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSpeciesWithAggregatesFilter<$PrismaModel> | $Enums.Species
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSpeciesFilter<$PrismaModel>
+    _max?: NestedEnumSpeciesFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type EnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
@@ -3952,6 +5443,64 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPostStatusFilter<$PrismaModel>
     _max?: NestedEnumPostStatusFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type PetPostScalarRelationFilter = {
+    is?: PetPostWhereInput
+    isNot?: PetPostWhereInput
+  }
+
+  export type ImagePetsCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    petPostId?: SortOrder
+  }
+
+  export type ImagePetsAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ImagePetsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    petPostId?: SortOrder
+  }
+
+  export type ImagePetsMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    petPostId?: SortOrder
+  }
+
+  export type ImagePetsSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type PetPostCreateNestedManyWithoutUserInput = {
@@ -4012,18 +5561,54 @@ export namespace Prisma {
     deleteMany?: PetPostScalarWhereInput | PetPostScalarWhereInput[]
   }
 
+  export type ImagePetsCreateNestedManyWithoutPetPostInput = {
+    create?: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput> | ImagePetsCreateWithoutPetPostInput[] | ImagePetsUncheckedCreateWithoutPetPostInput[]
+    connectOrCreate?: ImagePetsCreateOrConnectWithoutPetPostInput | ImagePetsCreateOrConnectWithoutPetPostInput[]
+    createMany?: ImagePetsCreateManyPetPostInputEnvelope
+    connect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+  }
+
   export type UserCreateNestedOneWithoutPostsInput = {
     create?: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
     connectOrCreate?: UserCreateOrConnectWithoutPostsInput
     connect?: UserWhereUniqueInput
   }
 
+  export type ImagePetsUncheckedCreateNestedManyWithoutPetPostInput = {
+    create?: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput> | ImagePetsCreateWithoutPetPostInput[] | ImagePetsUncheckedCreateWithoutPetPostInput[]
+    connectOrCreate?: ImagePetsCreateOrConnectWithoutPetPostInput | ImagePetsCreateOrConnectWithoutPetPostInput[]
+    createMany?: ImagePetsCreateManyPetPostInputEnvelope
+    connect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+  }
+
   export type EnumPetPostTypeFieldUpdateOperationsInput = {
     set?: $Enums.PetPostType
   }
 
+  export type EnumSpeciesFieldUpdateOperationsInput = {
+    set?: $Enums.Species
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type EnumPostStatusFieldUpdateOperationsInput = {
     set?: $Enums.PostStatus
+  }
+
+  export type ImagePetsUpdateManyWithoutPetPostNestedInput = {
+    create?: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput> | ImagePetsCreateWithoutPetPostInput[] | ImagePetsUncheckedCreateWithoutPetPostInput[]
+    connectOrCreate?: ImagePetsCreateOrConnectWithoutPetPostInput | ImagePetsCreateOrConnectWithoutPetPostInput[]
+    upsert?: ImagePetsUpsertWithWhereUniqueWithoutPetPostInput | ImagePetsUpsertWithWhereUniqueWithoutPetPostInput[]
+    createMany?: ImagePetsCreateManyPetPostInputEnvelope
+    set?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    disconnect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    delete?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    connect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    update?: ImagePetsUpdateWithWhereUniqueWithoutPetPostInput | ImagePetsUpdateWithWhereUniqueWithoutPetPostInput[]
+    updateMany?: ImagePetsUpdateManyWithWhereWithoutPetPostInput | ImagePetsUpdateManyWithWhereWithoutPetPostInput[]
+    deleteMany?: ImagePetsScalarWhereInput | ImagePetsScalarWhereInput[]
   }
 
   export type UserUpdateOneRequiredWithoutPostsNestedInput = {
@@ -4032,6 +5617,42 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPostsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostsInput, UserUpdateWithoutPostsInput>, UserUncheckedUpdateWithoutPostsInput>
+  }
+
+  export type ImagePetsUncheckedUpdateManyWithoutPetPostNestedInput = {
+    create?: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput> | ImagePetsCreateWithoutPetPostInput[] | ImagePetsUncheckedCreateWithoutPetPostInput[]
+    connectOrCreate?: ImagePetsCreateOrConnectWithoutPetPostInput | ImagePetsCreateOrConnectWithoutPetPostInput[]
+    upsert?: ImagePetsUpsertWithWhereUniqueWithoutPetPostInput | ImagePetsUpsertWithWhereUniqueWithoutPetPostInput[]
+    createMany?: ImagePetsCreateManyPetPostInputEnvelope
+    set?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    disconnect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    delete?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    connect?: ImagePetsWhereUniqueInput | ImagePetsWhereUniqueInput[]
+    update?: ImagePetsUpdateWithWhereUniqueWithoutPetPostInput | ImagePetsUpdateWithWhereUniqueWithoutPetPostInput[]
+    updateMany?: ImagePetsUpdateManyWithWhereWithoutPetPostInput | ImagePetsUpdateManyWithWhereWithoutPetPostInput[]
+    deleteMany?: ImagePetsScalarWhereInput | ImagePetsScalarWhereInput[]
+  }
+
+  export type PetPostCreateNestedOneWithoutImageInput = {
+    create?: XOR<PetPostCreateWithoutImageInput, PetPostUncheckedCreateWithoutImageInput>
+    connectOrCreate?: PetPostCreateOrConnectWithoutImageInput
+    connect?: PetPostWhereUniqueInput
+  }
+
+  export type PetPostUpdateOneRequiredWithoutImageNestedInput = {
+    create?: XOR<PetPostCreateWithoutImageInput, PetPostUncheckedCreateWithoutImageInput>
+    connectOrCreate?: PetPostCreateOrConnectWithoutImageInput
+    upsert?: PetPostUpsertWithoutImageInput
+    connect?: PetPostWhereUniqueInput
+    update?: XOR<XOR<PetPostUpdateToOneWithWhereWithoutImageInput, PetPostUpdateWithoutImageInput>, PetPostUncheckedUpdateWithoutImageInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -4138,6 +5759,27 @@ export namespace Prisma {
     not?: NestedEnumPetPostTypeFilter<$PrismaModel> | $Enums.PetPostType
   }
 
+  export type NestedEnumSpeciesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Species | EnumSpeciesFieldRefInput<$PrismaModel>
+    in?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSpeciesFilter<$PrismaModel> | $Enums.Species
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedEnumPostStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
@@ -4155,6 +5797,44 @@ export namespace Prisma {
     _max?: NestedEnumPetPostTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumSpeciesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Species | EnumSpeciesFieldRefInput<$PrismaModel>
+    in?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Species[] | ListEnumSpeciesFieldRefInput<$PrismaModel>
+    not?: NestedEnumSpeciesWithAggregatesFilter<$PrismaModel> | $Enums.Species
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSpeciesFilter<$PrismaModel>
+    _max?: NestedEnumSpeciesFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumPostStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.PostStatus | EnumPostStatusFieldRefInput<$PrismaModel>
     in?: $Enums.PostStatus[] | ListEnumPostStatusFieldRefInput<$PrismaModel>
@@ -4165,16 +5845,46 @@ export namespace Prisma {
     _max?: NestedEnumPostStatusFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type PetPostCreateWithoutUserInput = {
     id?: string
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    image?: ImagePetsCreateNestedManyWithoutPetPostInput
   }
 
   export type PetPostUncheckedCreateWithoutUserInput = {
@@ -4182,11 +5892,14 @@ export namespace Prisma {
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    image?: ImagePetsUncheckedCreateNestedManyWithoutPetPostInput
   }
 
   export type PetPostCreateOrConnectWithoutUserInput = {
@@ -4223,12 +5936,33 @@ export namespace Prisma {
     title?: StringFilter<"PetPost"> | string
     description?: StringFilter<"PetPost"> | string
     type?: EnumPetPostTypeFilter<"PetPost"> | $Enums.PetPostType
+    species?: EnumSpeciesFilter<"PetPost"> | $Enums.Species
+    breed?: StringNullableFilter<"PetPost"> | string | null
+    age?: StringNullableFilter<"PetPost"> | string | null
     location?: StringFilter<"PetPost"> | string
-    image?: StringFilter<"PetPost"> | string
     status?: EnumPostStatusFilter<"PetPost"> | $Enums.PostStatus
     userId?: StringFilter<"PetPost"> | string
     createdAt?: DateTimeFilter<"PetPost"> | Date | string
     updatedAt?: DateTimeFilter<"PetPost"> | Date | string
+  }
+
+  export type ImagePetsCreateWithoutPetPostInput = {
+    url: string
+  }
+
+  export type ImagePetsUncheckedCreateWithoutPetPostInput = {
+    id?: number
+    url: string
+  }
+
+  export type ImagePetsCreateOrConnectWithoutPetPostInput = {
+    where: ImagePetsWhereUniqueInput
+    create: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput>
+  }
+
+  export type ImagePetsCreateManyPetPostInputEnvelope = {
+    data: ImagePetsCreateManyPetPostInput | ImagePetsCreateManyPetPostInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserCreateWithoutPostsInput = {
@@ -4256,6 +5990,31 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutPostsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutPostsInput, UserUncheckedCreateWithoutPostsInput>
+  }
+
+  export type ImagePetsUpsertWithWhereUniqueWithoutPetPostInput = {
+    where: ImagePetsWhereUniqueInput
+    update: XOR<ImagePetsUpdateWithoutPetPostInput, ImagePetsUncheckedUpdateWithoutPetPostInput>
+    create: XOR<ImagePetsCreateWithoutPetPostInput, ImagePetsUncheckedCreateWithoutPetPostInput>
+  }
+
+  export type ImagePetsUpdateWithWhereUniqueWithoutPetPostInput = {
+    where: ImagePetsWhereUniqueInput
+    data: XOR<ImagePetsUpdateWithoutPetPostInput, ImagePetsUncheckedUpdateWithoutPetPostInput>
+  }
+
+  export type ImagePetsUpdateManyWithWhereWithoutPetPostInput = {
+    where: ImagePetsScalarWhereInput
+    data: XOR<ImagePetsUpdateManyMutationInput, ImagePetsUncheckedUpdateManyWithoutPetPostInput>
+  }
+
+  export type ImagePetsScalarWhereInput = {
+    AND?: ImagePetsScalarWhereInput | ImagePetsScalarWhereInput[]
+    OR?: ImagePetsScalarWhereInput[]
+    NOT?: ImagePetsScalarWhereInput | ImagePetsScalarWhereInput[]
+    id?: IntFilter<"ImagePets"> | number
+    url?: StringFilter<"ImagePets"> | string
+    petPostId?: StringFilter<"ImagePets"> | string
   }
 
   export type UserUpsertWithoutPostsInput = {
@@ -4291,13 +6050,91 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type PetPostCreateWithoutImageInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
+    location: string
+    status?: $Enums.PostStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPostsInput
+  }
+
+  export type PetPostUncheckedCreateWithoutImageInput = {
+    id?: string
+    title: string
+    description: string
+    type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
+    location: string
+    status?: $Enums.PostStatus
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PetPostCreateOrConnectWithoutImageInput = {
+    where: PetPostWhereUniqueInput
+    create: XOR<PetPostCreateWithoutImageInput, PetPostUncheckedCreateWithoutImageInput>
+  }
+
+  export type PetPostUpsertWithoutImageInput = {
+    update: XOR<PetPostUpdateWithoutImageInput, PetPostUncheckedUpdateWithoutImageInput>
+    create: XOR<PetPostCreateWithoutImageInput, PetPostUncheckedCreateWithoutImageInput>
+    where?: PetPostWhereInput
+  }
+
+  export type PetPostUpdateToOneWithWhereWithoutImageInput = {
+    where?: PetPostWhereInput
+    data: XOR<PetPostUpdateWithoutImageInput, PetPostUncheckedUpdateWithoutImageInput>
+  }
+
+  export type PetPostUpdateWithoutImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostsNestedInput
+  }
+
+  export type PetPostUncheckedUpdateWithoutImageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: StringFieldUpdateOperationsInput | string
+    status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PetPostCreateManyUserInput = {
     id?: string
     title: string
     description: string
     type: $Enums.PetPostType
+    species: $Enums.Species
+    breed?: string | null
+    age?: string | null
     location: string
-    image: string
     status?: $Enums.PostStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4308,11 +6145,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: ImagePetsUpdateManyWithoutPetPostNestedInput
   }
 
   export type PetPostUncheckedUpdateWithoutUserInput = {
@@ -4320,11 +6160,14 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: ImagePetsUncheckedUpdateManyWithoutPetPostNestedInput
   }
 
   export type PetPostUncheckedUpdateManyWithoutUserInput = {
@@ -4332,11 +6175,32 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     type?: EnumPetPostTypeFieldUpdateOperationsInput | $Enums.PetPostType
+    species?: EnumSpeciesFieldUpdateOperationsInput | $Enums.Species
+    breed?: NullableStringFieldUpdateOperationsInput | string | null
+    age?: NullableStringFieldUpdateOperationsInput | string | null
     location?: StringFieldUpdateOperationsInput | string
-    image?: StringFieldUpdateOperationsInput | string
     status?: EnumPostStatusFieldUpdateOperationsInput | $Enums.PostStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ImagePetsCreateManyPetPostInput = {
+    id?: number
+    url: string
+  }
+
+  export type ImagePetsUpdateWithoutPetPostInput = {
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ImagePetsUncheckedUpdateWithoutPetPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ImagePetsUncheckedUpdateManyWithoutPetPostInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
   }
 
 

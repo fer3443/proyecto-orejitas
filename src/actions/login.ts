@@ -1,6 +1,6 @@
 "use server";
 
-import { LoginForm, loginSchema } from "@/interface";
+import { LoginValues, loginSchema } from "@/interface";
 import { comparePassword } from "@/lib/hash";
 import { signToken } from "@/lib/auth-token";
 import { cookies } from "next/headers";
@@ -12,7 +12,7 @@ interface LoginResponse {
   status:number;
 }
 
-export const loginUser = async(values:LoginForm):Promise<LoginResponse> => {
+export const loginUser = async(values:LoginValues):Promise<LoginResponse> => {
   const parsedResult = loginSchema.safeParse(values);
 
   if(!parsedResult.success){
@@ -61,11 +61,11 @@ export const loginUser = async(values:LoginForm):Promise<LoginResponse> => {
     const cookieStore = await cookies();
 
     cookieStore.set({
-      name: "auth-token",
-      httpOnly: true,
-      value: token,
+      name: "auth-user",
+      value:token,
+      maxAge: 60 * 60 * 24,
       secure: process.env.NODE_ENV === "production",
-      expires: 60 * 60 * 24 //1 dia
+      path: '/'
     })
     
 

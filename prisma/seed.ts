@@ -4,9 +4,10 @@ import { PrismaClient } from "../generated/prisma";
 const prisma = new PrismaClient();
 
 async function main() {
-  
+  await prisma.imagePets.deleteMany();
   await prisma.petPost.deleteMany();
   await prisma.user.deleteMany();
+  
   const password = await hash("Gordaluna123", 10);
   // Crear usuario de prueba
   const user = await prisma.user.create({
@@ -14,75 +15,66 @@ async function main() {
       name: "Fer Dev",
       email: "fer@mail.com",
       password,
-      role: "ADMIN",
+      role: "USER",
       isBlocked: false,
     }
   });
 
-   await prisma.petPost.createMany({
-    data: [
-      {
-        title: 'Perro encontrado en el parque',
-        description: 'Labrador negro con collar rojo, muy amigable.',
-        type: 'FOUND',
-        location: 'Plaza San Martín, CABA',
-        image: 'https://placekitten.com/400/300',
-        status: 'ACTIVE',
-        userId: user.id,
+  // Creamos una publicación de mascota en adopción
+  await prisma.petPost.create({
+    data: {
+      title: "Cachorrita busca hogar",
+      description: "Encontramos esta perrita cerca del parque, es muy dulce y está en buen estado.",
+      type: "FOUND",
+      species: "PERRO",
+      breed: "Labrador",
+      age: "6 meses",
+      location: "Buenos Aires, Palermo",
+      status: "ACTIVE",
+      userId: user.id,
+      image: {
+        create: [
+          {
+            url: "https://placedog.net/500", // Imagen de prueba
+          },
+          {
+            url: "https://placedog.net/501",
+          },
+        ],
       },
-      {
-        title: 'Busco hogar para gatita',
-        description: 'Gatita rescatada de la calle, tiene 3 meses y es muy dulce.',
-        type: 'ADOPTION',
-        location: 'Rosario, Santa Fe',
-        image: 'https://placekitten.com/401/300',
-        status: 'ACTIVE',
-        userId: user.id,
-      },
-      {
-        title: 'Se perdió mi perro Max',
-        description: 'Golden retriever, responde al nombre Max. Se perdió el 15/05.',
-        type: 'LOST',
-        location: 'Villa Urquiza, CABA',
-        image: 'https://placekitten.com/402/300',
-        status: 'ACTIVE',
-        userId: user.id,
-      },
-    ],
+    },
   });
-  // const user = await prisma.user.create({
-  //   data: {
-  //     name: 'Fer Dev',
-  //     email: 'fer@example.com',
-  //     password: password,
-  //     role: 'ADMIN'
-  //      // en un proyecto real, debería estar hasheado
-  //   },
-  // });
 
-  // Crear publicaciones de mascotas
-  // await prisma.petPost.createMany({
-  //   data: [
-  //     {
-  //       title: 'Perro perdido en el parque',
-  //       description: 'Es un labrador negro, muy amistoso.',
-  //       image: 'https://images.unsplash.com/photo-1', // imagen fake
-  //       status: 'lost',
-  //       petType: 'dog',
-  //       location: 'Córdoba Capital',
-  //       userId: user.id,
-  //     },
-  //     {
-  //       title: 'Gatito encontrado',
-  //       description: 'Tiene collar rojo y es muy cariñoso.',
-  //       image: 'https://images.unsplash.com/photo-2',
-  //       status: 'found',
-  //       petType: 'cat',
-  //       location: 'Palermo, Buenos Aires',
-  //       userId: user.id,
-  //     },
-  //   ],
-  // });
+  // Otro usuario admin con post de adopción
+  const admin = await prisma.user.create({
+    data: {
+      name: "Admin",
+      email: "admin@example.com",
+      password: "adminhashedpassword",
+      role: "ADMIN",
+    },
+  });
+
+  await prisma.petPost.create({
+    data: {
+      title: "Gatito para adopción",
+      description: "Fue rescatado de la calle, es muy cariñoso y limpio.",
+      type: "ADOPTION",
+      species: "GATO",
+      breed: "Siamés",
+      age: "1 año",
+      location: "CABA, Villa Urquiza",
+      status: "ACTIVE",
+      userId: admin.id,
+      image: {
+        create: [
+          {
+            url: "https://placekitten.com/500/500",
+          },
+        ],
+      },
+    },
+  });
 
   console.log('🌱 Seed completado');
 }

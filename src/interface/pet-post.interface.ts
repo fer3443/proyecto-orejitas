@@ -4,14 +4,24 @@ export interface PetPost {
   id:string;
   title:string;
   description:string;
-  image: string;
-  status: PostStatus;
-  petType:PetType;
+  type:PostType;
+  species: Species;
+  breed?: string | null;
+  age?: string | null;
   location:string;
-  resolved:boolean;
-  user:User;
-  createdAt:string;
+  image: string[];
+  status: PostStatus;
+  user: {
+    name:string;
+    id:string;
+  };
 }
 
-export type PostStatus = "lost" |"found" |"adoption";
-export type PetType = "dog" | "cat" | "other";
+export interface PetImages {
+  id:number;
+  url:string;
+}
+
+export type PostType = "LOST" |"FOUND" |"ADOPTION";
+export type Species = "PERRO" | "GATO" | "OTRO";
+export type PostStatus = "ACTIVE" | "RESOLVED" | "CLOSED";
