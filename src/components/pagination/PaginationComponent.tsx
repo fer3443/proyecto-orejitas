@@ -48,7 +48,7 @@ export const PaginationComponent = ({ totalPages }: Props) => {
   };
 
   return (
-    <Pagination>
+    <Pagination className="my-5">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious href={createPageUrl(currentPage - 1)} />

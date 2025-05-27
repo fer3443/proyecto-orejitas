@@ -1,8 +1,8 @@
 "use server";
 
-import { PetPost } from "@/interface";
 import prisma from "@/lib/prisma";
 import { PetPostType } from "../../../generated/prisma";
+import { PetPost } from "@/interface";
 
 interface GetPetPostResponse {
   success: boolean;
@@ -21,14 +21,12 @@ interface PaginationOptions {
 
 export const getPetPost = async ({
   page = 1,
-  take = 1,
+  take = 5,
   typest
 }: PaginationOptions): Promise<GetPetPostResponse> => {
   if (page < 1) page = 1;
   if (isNaN(Number(page))) page = 1;
   try {
-    // const take = 10
-    // const page = 1
     const results = await Promise.all([
       prisma.petPost.findMany({
         take,
@@ -47,6 +45,7 @@ export const getPetPost = async ({
             take: 1,
             select: {
               url: true,
+              id: true
             },
           },
         },
@@ -74,6 +73,7 @@ export const getPetPost = async ({
       totalPages: totalPage,
     };
   } catch (error) {
+    console.log(error)
     return {
       success: false,
       message: "No se pudo realizar la peticon",

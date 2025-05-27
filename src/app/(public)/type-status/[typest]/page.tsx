@@ -1,8 +1,9 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { getPetPost } from "@/actions";
-import { PaginationComponent } from "@/components";
+import { PaginationComponent, PetsGrid, Title } from "@/components";
 import { PostType } from "@/interface";
+import { typeLabel } from "@/constants/type-labels";
 
 interface Props {
   params: Promise<{typest:string}>;
@@ -25,7 +26,11 @@ export default async function TypeStatusPage({params, searchParams}:Props) {
 
   return (
     <div>
-      <h1>Hello Page Type {typest}</h1>
+      <Title
+      title={`Sección de ${typeLabel[typest]}`}
+      subtitle="Aqui podras encontrar a tu mascota perdida o en adopcion, o reportar una mascota encontrada."
+      />
+      <PetsGrid pets={data || []}/>
       <PaginationComponent totalPages={totalPages || 1}/>
     </div>
   );

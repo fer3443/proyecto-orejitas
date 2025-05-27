@@ -17,6 +17,7 @@ export const Logout = () => {
         toast(resp.message)
       }
     } catch (error) {
+      console.log(error)
       toast.error("Error al cerrar sesión")
     }
   }

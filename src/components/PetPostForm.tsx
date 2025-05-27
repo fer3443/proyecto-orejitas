@@ -21,9 +21,9 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
       age: "",
       breed: "",
       description: "",
-      image: "",
+      image: [""],
       location: "",
-      species: "Perro",
+      species: "PERRO",
       status: "ACTIVE",
       title: "",
       type: "LOST"
@@ -169,7 +169,7 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
 
         <Button
         disabled={form.formState.isSubmitting}
-        type="submit">{form.formState.isSubmitting ? "Publicando..." : "Publicar"}</Button>
+        type="submit">{isEditing ? "Editar" : "Publicar"}</Button>
       </form>
     </Form>
   )
