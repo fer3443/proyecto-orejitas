@@ -136,12 +136,20 @@ exports.Prisma.PetPostScalarFieldEnum = {
   title: 'title',
   description: 'description',
   type: 'type',
+  species: 'species',
+  breed: 'breed',
+  age: 'age',
   location: 'location',
-  image: 'image',
   status: 'status',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ImagePetsScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  petPostId: 'petPostId'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,6 +160,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
@@ -164,6 +177,12 @@ exports.PetPostType = exports.$Enums.PetPostType = {
   FOUND: 'FOUND'
 };
 
+exports.Species = exports.$Enums.Species = {
+  PERRO: 'PERRO',
+  GATO: 'GATO',
+  OTRO: 'OTRO'
+};
+
 exports.PostStatus = exports.$Enums.PostStatus = {
   ACTIVE: 'ACTIVE',
   RESOLVED: 'RESOLVED',
@@ -172,7 +191,8 @@ exports.PostStatus = exports.$Enums.PostStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  PetPost: 'PetPost'
+  PetPost: 'PetPost',
+  ImagePets: 'ImagePets'
 };
 
 /**

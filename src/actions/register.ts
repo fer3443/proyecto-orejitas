@@ -1,6 +1,6 @@
 "use server";
 
-import { registerSchema, RegisterForm } from "@/interface";
+import { registerSchema, RegisterValues } from "@/interface";
 import { hashPassword } from "@/lib/hash";
 import prisma from "@/lib/prisma";
 
@@ -11,7 +11,7 @@ interface RegisterResponse {
 }
 
 export const registerUser = async (
-  values: RegisterForm
+  values: RegisterValues
 ): Promise<RegisterResponse> => {
   const parsedResult = registerSchema.safeParse(values);
   if (!parsedResult.success) {
@@ -37,10 +37,11 @@ export const registerUser = async (
       };
     }
 
-    const { password, ...rest } = parsedResult.data;
+    const { password, email, name } = parsedResult.data;
     const hashedPassword = await hashPassword(password);
     const user = {
-      ...rest,
+      name,
+      email: email.toLocaleLowerCase(),
       password: hashedPassword,
     };
     await prisma.user.create({

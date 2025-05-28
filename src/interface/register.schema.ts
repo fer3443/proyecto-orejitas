@@ -24,4 +24,4 @@ export const registerSchema = z.object({
     ),
 });
 
-export type RegisterForm = z.infer<typeof registerSchema>;
+export type RegisterValues = z.infer<typeof registerSchema>;
