@@ -9,7 +9,11 @@ export const getPetPostId = async (id:string) => {
         id: id
       },
       include: {
-        image: true,
+        image: {
+          select: {
+            url:true
+          }
+        },
         user: {
           select: {
             name:true

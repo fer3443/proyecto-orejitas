@@ -14,7 +14,7 @@ export const getUserToken = async():Promise<UserTokenResponse> => {
   if (!dataUser) {
     return {
       success:false,
-      message: "No se encontro token"
+      message: "No autorizado"
     }
   }
   const token  = cookiesStore.get("auth-user")?.value as string;

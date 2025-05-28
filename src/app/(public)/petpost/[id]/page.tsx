@@ -1,12 +1,11 @@
-import clsx from "clsx";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 import { getPetPostId } from "@/actions";
-import { Badge, SlideShow, SlideShowMobile } from "@/components";
+import { SlideShow, SlideShowMobile, StatusBadge } from "@/components";
 import { titleFont } from "@/config/fonts";
-import { labelStatus, speciesLabel, typeLabel } from "@/constants/type-labels";
+import { speciesLabel, typeLabel } from "@/constants/type-labels";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -40,15 +39,11 @@ export default async function PetPostDetailPage({ params }: Props) {
             >
               {data.title}
             </h1>
-            <Badge
-              variant={data.status === "ACTIVE" ? "default" : "outline"}
-              className={clsx("bg-gray-200", {
-                "text-green-500": data.status === "ACTIVE",
-                "text-yellow-500": data.status === "RESOLVED",
-              })}
-            >
-              {labelStatus[data.status]}
-            </Badge>
+            
+            <StatusBadge
+              id={data.id}
+            />
+
           </div>
           <p className="text-muted-foreground">{data.description}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-muted-foreground mt-4">

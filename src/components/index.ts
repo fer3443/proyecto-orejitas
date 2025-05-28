@@ -18,3 +18,4 @@ export { SlideShow } from "./slideshow/SlideShow";
 export { SlideShowMobile } from "./slideshow/SlideShowMobile";
 
 export { PetPostForm } from "./PetPostForm";
+export * from './pets/status-badge/StatusBadge';

@@ -1,20 +1,18 @@
-import { User } from "./user.interface";
-
 export interface PetPost {
   id:string;
   title:string;
   description:string;
   type:PostType;
   species: Species;
-  breed?: string | null;
-  age?: string | null;
+  breed?: string;
+  age?: string;
   location:string;
   image: string[];
   status: PostStatus;
-  user: {
-    name:string;
-    id:string;
-  };
+  // user: {
+  //   name:string;
+  //   id:string;
+  // };
 }
 
 export interface PetImages {

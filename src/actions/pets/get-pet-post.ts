@@ -8,7 +8,7 @@ interface GetPetPostResponse {
   success: boolean;
   message: string;
   status: number;
-  data: PetPost[] | null;
+  data?: PetPost[];
   currentPage?: number;
   totalPages?: number;
 }
@@ -42,7 +42,6 @@ export const getPetPost = async ({
             },
           },
           image: {
-            take: 1,
             select: {
               url: true,
               id: true
@@ -67,6 +66,8 @@ export const getPetPost = async ({
       currentPage: page,
       data: results[0].map((pet) => ({
         ...pet,
+        breed:pet.breed || "",
+        age: pet.age || "",
         user: pet.user,
         image: pet.image.map((img) => img.url),
       })),
@@ -78,7 +79,6 @@ export const getPetPost = async ({
       success: false,
       message: "No se pudo realizar la peticon",
       status: 500,
-      data: null,
     };
   }
 };

@@ -23,7 +23,7 @@ export const PetsGridItem = ({pet}:Props) => {
       />
       <div className='p-4 flex flex-col gap-y-1.5'>
         <Link href={`/petpost/${pet.id}`} className='hover:text-blue-500 font-semibold'>{pet.title}</Link>
-        <p className='font-semibold text-xs text-gray-800'>{pet.description}</p>
+        <p className='font-semibold text-xs text-gray-800 h-12 overflow-y-hidden text-ellipsis line-clamp-3'>{pet.description}</p>
         <p className='text-xs capitalize'>Estado: <span className={clsx({
           "text-red-500": pet.type === "LOST",
           "text-green-500": pet.type === "FOUND",

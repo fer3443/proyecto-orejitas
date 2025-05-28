@@ -34,7 +34,7 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
     if(initialValues){
       form.reset(initialValues);
     }
-  },[initialValues, form.reset])
+  },[initialValues])
 
   return (
      <Form {...form}>
@@ -79,9 +79,9 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="Perro">Perro</SelectItem>
-                  <SelectItem value="Gato">Gato</SelectItem>
-                  <SelectItem value="Otro">Otro</SelectItem>
+                  <SelectItem value="PERRO">Perro</SelectItem>
+                  <SelectItem value="GATO">Gato</SelectItem>
+                  <SelectItem value="OTRO">Otro</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -152,7 +152,7 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
             </FormItem>
           )}
         />
-         <FormField
+         {/* <FormField
           control={form.control}
           name="image"
           render={({ field }) => (
@@ -162,6 +162,45 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
                 <Input maxLength={250} placeholder="http://google.com/pets..." {...field} />
               </FormControl>
               <FormDescription className='text-xs'>Te puede ayudar en casos de perdida o encuentro de mascotas.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className='col-span-full'>
+              <FormLabel>Imágenes (URLs)</FormLabel>
+              {field.value.map((url, idx) => (
+                <div key={idx} className="flex gap-2 mb-2">
+                  <Input
+                    value={url}
+                    onChange={(e) => {
+                      const newUrls = [...field.value];
+                      newUrls[idx] = e.target.value;
+                      field.onChange(newUrls);
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => {
+                      const newUrls = field.value.filter((_, i) => i !== idx);
+                      field.onChange(newUrls);
+                    }}
+                  >
+                    Quitar
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => field.onChange([...field.value, ''])}
+              >
+                Agregar imagen
+              </Button>
               <FormMessage />
             </FormItem>
           )}
