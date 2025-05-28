@@ -16,7 +16,7 @@ export const PetsGrid = ({pets}:Props) => {
     )
   }
   return (
-    <div className='grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 mb-10'>
+    <div className='px-4 md:px-0 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 mb-10'>
       {pets.map(pet => (
         // <span key={pet.id}>{pet.title}</span>
         <PetsGridItem pet={pet} key={pet.id}/>

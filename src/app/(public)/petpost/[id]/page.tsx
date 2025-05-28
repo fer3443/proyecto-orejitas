@@ -31,7 +31,7 @@ export default async function PetPostDetailPage({ params }: Props) {
         <SlideShowMobile image={data.image} title={data.title} className="block md:hidden"/>
       </div>
       {/*Detalles */}
-      <div className="col-span-1 md:col-span-2 space-y-4">
+      <div className="col-span-1 md:col-span-2 space-y-4 px-4">
         <div className="space-y-4 max-w-[500px]">
           <div className="flex items-center justify-between">
             <h1

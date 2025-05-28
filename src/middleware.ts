@@ -3,7 +3,6 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   const token = request.cookies.get('auth-user')?.value
-  console.log({token})
 
   // Si el usuario tiene sesión activa y quiere entrar a login o register
   const isAuthPage = request.nextUrl.pathname === '/auth/login' || request.nextUrl.pathname === '/auth/register'
