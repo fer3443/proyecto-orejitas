@@ -27,7 +27,7 @@ export const LoginForm = () => {
       const resp = await loginUser(values);
       if(resp.success){
         toast.success(resp.message)
-        router.push("/")
+        router.push("/feed")
       }else{
         toast("No se pudo iniciar sesión", {description: <span className='text-gray-500'>{resp.message}</span>})
       }

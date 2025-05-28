@@ -1,18 +1,21 @@
 "use client";
 
 import { logoutUser } from '@/actions/logout';
+import { useUserStore } from '@/store';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { toast } from 'sonner';
 
 export const Logout = () => {
+  const setUser = useUserStore(state => state.setUser);
   const router = useRouter()
   const handlerLogout = async () => {
     try {
       const resp = await logoutUser();
       if(resp.success){
+        setUser(false)
         toast.success(resp.message)
-        router.push('/auth/login')
+        router.push('/feed')
       }else{
         toast(resp.message)
       }
@@ -22,6 +25,6 @@ export const Logout = () => {
     }
   }
   return (
-    <button onClick={handlerLogout} className='border shadow-xs p-2 cursor-pointer'>cerrar sesión</button>
+    <button onClick={handlerLogout} className='border rounded-md shadow-xs p-2 cursor-pointer text-sm hover:bg-gray-200 transition-all'>cerrar sesión</button>
   )
 }

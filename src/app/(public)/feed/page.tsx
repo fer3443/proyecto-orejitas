@@ -15,6 +15,7 @@ export default async function FeedPage({ searchParams }: Props) {
       <Title
       title="Bienvenidos a Orejitas"
       subtitle="El sitio donde ayudamos a nuestros amiguitos de 4 patas"
+      className="px-4 md:px-0"
       />
       <PetsGrid pets={data || []}/>
       <PaginationComponent totalPages={totalPages || 1}/>

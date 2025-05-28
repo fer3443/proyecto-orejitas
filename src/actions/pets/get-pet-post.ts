@@ -21,7 +21,7 @@ interface PaginationOptions {
 
 export const getPetPost = async ({
   page = 1,
-  take = 5,
+  take = 10,
   typest
 }: PaginationOptions): Promise<GetPetPostResponse> => {
   if (page < 1) page = 1;

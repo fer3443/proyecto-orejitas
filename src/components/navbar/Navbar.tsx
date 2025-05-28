@@ -1,7 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import { Sidebar } from "./Sidebar";
+import { UserLinks } from "../users/UserLinks";
 
 export const Navbar = () => {
+
   const links = [
     { name: "En adopcion", path: "/type-status/ADOPTION" },
     { name: "Perdidos", path: "/type-status/LOST" },
@@ -20,10 +23,13 @@ export const Navbar = () => {
           <Link href={link.path} key={index} className="m-2 p-2 rounded-md transition-all hover:bg-gray-100">{link.name}</Link>
         ))}
       </div>
+      <div className="hidden sm:block">
+        <UserLinks/>
+      </div>
 
       {/*Search, profile */}
-      <div className="flex items-center">
-        <Link href='/profile'>Perfil</Link>
+      <div className="md:hidden">
+        <Sidebar links={links}/>
         {/*Aqui va el componente de busqueda */}
       </div>
     </nav>
