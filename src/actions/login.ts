@@ -4,7 +4,7 @@ import { LoginValues, loginSchema } from "@/interface";
 import { comparePassword } from "@/lib/hash";
 import { signToken } from "@/lib/auth-token";
 import { cookies } from "next/headers";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 
 interface LoginResponse {
   success:boolean;

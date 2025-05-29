@@ -2,7 +2,7 @@
 
 import { registerSchema, RegisterValues } from "@/interface";
 import { hashPassword } from "@/lib/hash";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 
 interface RegisterResponse {
   success: boolean;
