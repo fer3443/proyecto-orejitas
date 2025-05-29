@@ -188,6 +188,10 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -205,6 +209,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -213,8 +218,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String    @id @default(uuid())\n  name      String\n  email     String    @unique\n  password  String\n  role      Role      @default(USER)\n  isBlocked Boolean   @default(false)\n  posts     PetPost[] // relación 1:N con PetPost\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n}\n\nmodel PetPost {\n  id          String      @id @default(uuid())\n  title       String\n  description String\n  type        PetPostType\n  species     Species\n  breed       String?\n  age         String?\n  location    String\n  image       ImagePets[]\n  status      PostStatus  @default(ACTIVE)\n  userId      String\n  user        User        @relation(fields: [userId], references: [id])\n  createdAt   DateTime    @default(now())\n  updatedAt   DateTime    @updatedAt\n\n  @@index([type])\n}\n\nmodel ImagePets {\n  id  Int    @id @default(autoincrement())\n  url String\n\n  petPost   PetPost @relation(fields: [petPostId], references: [id])\n  petPostId String\n}\n\nenum PetPostType {\n  ADOPTION // para dar en adopción\n  LOST // mascota perdida\n  FOUND // mascota encontrada\n}\n\nenum PostStatus {\n  ACTIVE\n  RESOLVED\n  CLOSED\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Species {\n  PERRO\n  GATO\n  OTRO\n}\n",
-  "inlineSchemaHash": "35f3fa94b6703472aa1ba801eaee063c7b5c6614ec437ff642482cef4d6856a5",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String    @id @default(uuid())\n  name      String\n  email     String    @unique\n  password  String\n  role      Role      @default(USER)\n  isBlocked Boolean   @default(false)\n  posts     PetPost[] // relación 1:N con PetPost\n  createdAt DateTime  @default(now())\n  updatedAt DateTime  @updatedAt\n}\n\nmodel PetPost {\n  id          String      @id @default(uuid())\n  title       String\n  description String\n  type        PetPostType\n  species     Species\n  breed       String?\n  age         String?\n  location    String\n  image       ImagePets[]\n  status      PostStatus  @default(ACTIVE)\n  userId      String\n  user        User        @relation(fields: [userId], references: [id])\n  createdAt   DateTime    @default(now())\n  updatedAt   DateTime    @updatedAt\n\n  @@index([type])\n}\n\nmodel ImagePets {\n  id  Int    @id @default(autoincrement())\n  url String\n\n  petPost   PetPost @relation(fields: [petPostId], references: [id])\n  petPostId String\n}\n\nenum PetPostType {\n  ADOPTION // para dar en adopción\n  LOST // mascota perdida\n  FOUND // mascota encontrada\n}\n\nenum PostStatus {\n  ACTIVE\n  RESOLVED\n  CLOSED\n}\n\nenum Role {\n  ADMIN\n  USER\n}\n\nenum Species {\n  PERRO\n  GATO\n  OTRO\n}\n",
+  "inlineSchemaHash": "fa1f59aebc290591baccb781c9dd560dcba34d24044f82a5af491f6fdd138baf",
   "copyEngine": true
 }
 config.dirname = '/'
