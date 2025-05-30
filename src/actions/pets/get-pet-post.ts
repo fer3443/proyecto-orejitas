@@ -1,8 +1,8 @@
 "use server";
 
-import {prisma} from "@/lib/prisma";
-import { PetPostType } from "../../../generated/prisma";
+import prisma from "@/lib/prisma";
 import { PetPost } from "@/interface";
+import { PetPostType } from "@/generated/prisma";
 
 interface GetPetPostResponse {
   success: boolean;

@@ -1,6 +1,7 @@
 "use server";
 
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
+
 
 export const getPetPostId = async (id:string) => {
   try {

@@ -2,7 +2,7 @@
 
 import { verifyToken } from "@/lib/auth-token";
 import { getUserToken } from "../get-user-token";
-import {prisma} from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 interface UserPayload {
   id: string;

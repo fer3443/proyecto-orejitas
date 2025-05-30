@@ -34,7 +34,7 @@ export const PetPostForm = ({initialValues, onSubmit, isEditing = false}:PetPost
     if(initialValues){
       form.reset(initialValues);
     }
-  },[initialValues])
+  },[initialValues,form])
 
   return (
      <Form {...form}>

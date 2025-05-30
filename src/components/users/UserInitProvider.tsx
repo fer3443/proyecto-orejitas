@@ -9,8 +9,7 @@ export const UserInitProvider = () => {
 
   useEffect(() => {
    getUserStatus().then((res) => setUser(res.isLogged))
-   console.log("obteniendo usuario")
-  },[]);
+  },[setUser]);
 
   return null
 }

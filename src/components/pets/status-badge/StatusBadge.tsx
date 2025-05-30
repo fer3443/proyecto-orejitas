@@ -17,7 +17,7 @@ export const StatusBadge = ({ id }: Props) => {
 
   React.useEffect(() => {
     getStatus();
-  }, [postStatus]);
+  }, []);
 
   const getStatus = async () => {
     const resp = (await getStatusById(id)) as PostStatus;
