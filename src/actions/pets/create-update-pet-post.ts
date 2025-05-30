@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { petPostSchema, PetPostValues } from "@/interface";
 import { getUserToken } from "../get-user-token";
 import { verifyToken } from "@/lib/auth-token";
-import { prisma } from "@/lib/prisma";
+import prisma  from "@/lib/prisma"
 
 interface PetPostResposne {
   success: boolean;

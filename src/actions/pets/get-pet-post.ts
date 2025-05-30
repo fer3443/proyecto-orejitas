@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
+import prisma  from "@/lib/prisma"
 import { PetPost } from "@/interface";
 import { PetPostType } from "@/generated/prisma";
 
