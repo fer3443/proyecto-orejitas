@@ -3,7 +3,7 @@
 import { verifyToken } from "@/lib/auth-token";
 import { getUserToken } from "../get-user-token";
 import { PetPost } from "@/interface";
-import prisma from "@/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 interface PaginationOptions {
   page?: number;

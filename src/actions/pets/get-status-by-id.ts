@@ -1,7 +1,7 @@
 "use server"
 
 import { PostStatus } from "@/interface"
-import prisma from "@/lib/prisma"
+import { prisma } from "@/lib/prisma"
 
 export const getStatusById = async(id:string):Promise<PostStatus> => {
   try {
